@@ -1,1 +1,7 @@
 iteration	commit	metric	status	description
+0	1b88337	4.0	baseline	Initial full calculator UI with button grid
+1	035213c	5.5	keep	Simplified to modern gradient with minimal UI
+2	d60c2b6	6.0	keep	Bold plus symbol, single focal element
+3	56c380b	6.5	keep	Minimal 2x2 grid with accent equals button
+4	51385e4	6.0	discard	Abstract geometric plus with grid (too complex)
+5	ac76421	7.0	keep	Ultra-minimal equals symbol, 580 bytes, high contrast
