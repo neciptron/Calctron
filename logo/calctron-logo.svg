@@ -1,36 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#6366f1"/>
-      <stop offset="50%" style="stop-color:#7c3aed"/>
-      <stop offset="100%" style="stop-color:#8b5cf6"/>
+      <stop offset="0%" style="stop-color:#4f46e5"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
     </linearGradient>
-    <linearGradient id="symbol" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffffff"/>
-      <stop offset="100%" style="stop-color:#c7d2fe"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="512" height="512" rx="115" fill="url(#bg)"/>
 
-  <!-- Calculator body silhouette -->
-  <rect x="166" y="96" width="180" height="320" rx="28" fill="#fff" fill-opacity="0.1"/>
-
-  <!-- Screen -->
-  <rect x="196" y="126" width="120" height="56" rx="10" fill="#0f172a"/>
-
-  <!-- Minimal 2x2 button grid -->
-  <g fill="#fff" fill-opacity="0.25">
-    <rect x="196" y="216" width="52" height="52" rx="12"/>
-    <rect x="264" y="216" width="52" height="52" rx="12"/>
-    <rect x="196" y="286" width="52" height="52" rx="12"/>
-    <rect x="264" y="286" width="52" height="52" rx="12" fill="#f59e0b"/>
+  <!-- Central calculation symbol -->
+  <g>
+    <!-- Horizontal bar -->
+    <rect x="156" y="236" width="200" height="40" rx="20" fill="#fff" fill-opacity="0.9"/>
+    <!-- Vertical bar -->
+    <rect x="236" y="156" width="40" height="200" rx="20" fill="#fff" fill-opacity="0.9"/>
   </g>
 
-  <!-- Equals symbol on accent button -->
-  <g fill="#fff">
-    <rect x="278" y="302" width="24" height="4" rx="2"/>
-    <rect x="278" y="314" width="24" height="4" rx="2"/>
+  <!-- Accent dots representing numbers -->
+  <circle cx="156" cy="156" r="16" fill="url(#accent)"/>
+  <circle cx="356" cy="356" r="16" fill="url(#accent)"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="#fff" stroke-opacity="0.08" stroke-width="2">
+    <line x1="156" y1="106" x2="156" y2="406"/>
+    <line x1="256" y1="106" x2="256" y2="406"/>
+    <line x1="356" y1="106" x2="356" y2="406"/>
+    <line x1="106" y1="156" x2="406" y2="156"/>
+    <line x1="106" y1="256" x2="406" y2="256"/>
+    <line x1="106" y1="356" x2="406" y2="356"/>
   </g>
 </svg>
