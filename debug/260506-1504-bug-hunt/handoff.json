@@ -1,0 +1,17 @@
+{
+    "source": "autoresearch_debug",
+    "bugs_found": 7,
+    "critical": 3,
+    "high": 2,
+    "medium": 1,
+    "low": 1,
+    "files_to_fix": [
+        "src/parallel.zig",
+        "src/calculator.zig",
+        "src/ui.zig",
+        "src/main.zig"
+    ],
+    "top_priority": "Thread args use-after-scope race condition in parallel.zig:28-32",
+    "findings_file": "debug/findings.md",
+    "From-Debug": true
+}

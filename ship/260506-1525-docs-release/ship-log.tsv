@@ -1,0 +1,2 @@
+timestamp	type	target	checklist_score	dry_run	shipped	verified	duration	notes
+2026-05-06T15:36:00Z	documentation	calctron README + LICENSE + CHANGELOG + CONTRIBUTING	22/22	pass	pass	pass	12m	Full documentation shipped — README updated (V key, troubleshooting, security), LICENSE created (MIT), CHANGELOG.md created, CONTRIBUTING.md created

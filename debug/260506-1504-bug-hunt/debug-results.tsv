@@ -1,0 +1,13 @@
+# metric_direction: higher_is_better (more bugs found = more thorough)
+iteration	type	hypothesis	result	severity	location	description
+1	hypothesis	R key theme toggle dead code	confirmed	HIGH	main.zig:34	handleInput consumes R key with early return before theme toggle reached
+2	hypothesis	getDisplayText returns wrong value	confirmed	HIGH	calculator.zig:338	allocPrint creates operator string but returns self.display instead of buf
+3	hypothesis	Thread args use-after-scope	confirmed	CRITICAL	parallel.zig:28-32	stack-allocated args passed to thread spawn, goes out of scope before thread reads
+4	hypothesis	math.log API incorrect	confirmed	CRITICAL	calculator.zig:260	std.math.log requires 3 args (T, base, x), should be math.ln(val)
+5	hypothesis	Button array too small	confirmed	CRITICAL	ui.zig:143	[25]Button but scientific+basic needs 35 slots, index out of bounds
+6	hypothesis	Dead result variable	confirmed	LOW	parallel.zig:9	var result: u64 = 1 never used, Zig compile error for unused local
+7	hypothesis	Number key enum mapping fragile	confirmed	MEDIUM	calculator.zig:66	@enumFromInt(48+i) assumes ASCII==KeyboardKey enum values
+8	discovery	-	new_lead	-	-	-	R key should be remapped to avoid conflict with sqrt
+9	hypothesis	setOperator null-byte clear works as intended	disproven	-	-	-	current_input[0]=0 correctly clears C-string buffer
+10	hypothesis	evaluate error handling is correct	disproven	-	-	-	Error path in evaluate properly gates result update
+11	hypothesis	reset clears all state	disproven	-	-	-	reset() properly clears all Calculator fields

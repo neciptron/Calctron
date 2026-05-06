@@ -1,0 +1,17 @@
+.{
+    .name = .calctron,
+    .version = "0.1.0",
+    .dependencies = .{
+        .raylib_zig = .{
+            .url = "https://github.com/raylib-zig/raylib-zig/archive/refs/tags/v5.6-dev.tar.gz",
+            .hash = "raylib_zig-5.6.0-dev-KE8REKNmBQDek2Sz27ULioxYpY9IYR0K0CeIC-iJRLCI",
+        },
+    },
+    .minimum_zig_version = "0.16.0",
+    .fingerprint = 0x4c644d1e1cd1a920,
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src/",
+    },
+}

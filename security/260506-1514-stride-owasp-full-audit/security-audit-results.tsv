@@ -1,0 +1,32 @@
+iteration	vector	severity	owasp	stride	confidence	location	description
+0	-	-	-	-	-	-	baseline — Zig desktop calculator, 6 src files, raylib dependency, no network access, no auth/DB/API
+1	display-buffer	Clean	A03	Tampering	Confirmed	calculator.zig:28,334-338	64-byte display buffer has correct bounds checking; getDisplayText uses < 63 guard; formatResult uses fixedBufferStream
+2	current-input	Clean	A03	Tampering	Confirmed	calculator.zig:29,151,170	current_input has correct len >= 63 guard in appendDigit and len < 63 guard in appendDot
+3	thread-args	Clean	A08	Tampering	Confirmed	parallel.zig:14,22-39	args_array at function scope, threads joined before return — already fixed, no vulnerability
+4	thread-partials	Medium	A08	Tampering	Likely	parallel.zig:13,25,35	Partials array written by separate threads without atomics; works on x86 but data race on ARM/weakly-ordered architectures
+5	factorial-overflow	High	A04	Tampering	Confirmed	parallel.zig:51-54	calculator.zig:278-282	factorialParallel silently returns maxInt(u64) on overflow — no error signal to user, corrupts calculation result
+6	div-zero	Clean	A04	DoS	Confirmed	calculator.zig:221-226	Division by zero properly checked; error_msg set and 0 returned
+7	domain-errors	Clean	A04	DoS	Confirmed	calculator.zig:245-262	sqrt/log/ln domain checks correct; error_msg set on invalid input
+8	nan-inf-propagation	Medium	A04	InfoDisclosure	Confirmed	calculator.zig:216-230,289-296	applyUnary checks NaN/Inf but compute() (binary ops) does not — chained operations propagate NaN from prior errors
+9	oom-leak	Low	A05	DoS	Confirmed	calculator.zig:28-29	If display alloc succeeds but current_input fails, display buffer is leaked before @panic
+10	getdisplaytext-mutation	High	A03	Tampering	Confirmed	calculator.zig:326-339	getDisplayText appends op_str to display buffer every call; at 60 FPS display grows "5 +  +  + ..." until buffer fills
+11	backspace	Clean	A03	Tampering	Confirmed	calculator.zig:299-305	Checks len > 0 before accessing len-1; no underflow possible
+12	format-result	Clean	A03	Tampering	Confirmed	calculator.zig:307-315	fixedBufferStream safely handles buffer size; overflow caught and ignored
+13	appendDigit-after-result	Clean	A01	Tampering	Confirmed	calculator.zig:155-159	Null terminator protects against stale data; std.mem.len stops at first \0
+14	chained-ops-nan	Medium	A04	Tampering	Confirmed	calculator.zig:182,199	compute() returns Inf/NaN without checking; result stored in pending_value; subsequent operations use corrupted value
+15	input-flood	Clean	A05	DoS	Confirmed	main.zig:31,isKeyPressed	Only fires once per keypress; max 60 inputs/sec; buffer guards prevent overflow
+16	hover-coords	Clean	A04	Tampering	Confirmed	ui.zig:51-57	Mouse coords compared against button bounds; raylib handles out-of-bounds gracefully
+17	window-resize	High	A04	DoS	Likely	ui.zig:34-43	btn_w can go negative on extreme resize; raylib.drawRectangleRounded with negative width is UB in C library
+18	raylib-supply-chain	Clean	A06	Spoofing	Confirmed	build.zig:7-11	Desktop app with no external asset loading; raylib attack surface not reachable in current usage
+19	build-stubs	Clean	A05	Tampering	Confirmed	build.zig:54-56	Cross-compile steps are no-ops; misleading but not exploitable
+20	panic-init	Info	A05	DoS	Confirmed	calculator.zig:28-29	@panic("OOM") crashes app instead of graceful recovery; acceptable for calculator but not ideal
+21	float-precision	Medium	A02	Tampering	Likely	calculator.zig:310	i64 conversion loses precision for floats > 2^53; @intFromFloat for values outside i64 range is UB
+22	trig-precision	Clean	A02	Tampering	Confirmed	calculator.zig:237	Standard deg-to-rad conversion; precision loss inherent to floating point, not exploitable
+23	thread-spawn-fallback	Clean	A04	DoS	Confirmed	parallel.zig:37-39	Spawn failure correctly falls back to sequential; no security impact
+24	result-truncation	Low	A04	InfoDisclosure	Confirmed	calculator.zig:311,313	fixedBufferStream silently truncates long results; user sees incomplete output with no indication
+25	status-bar	Clean	A03	Tampering	Confirmed	ui.zig:293-294	64-byte stack buffer with ~16 chars of text; no overflow possible
+26	i18n-injection	Clean	A03	Tampering	Confirmed	i18n.zig:64-302	All translations are compile-time constants; no user input flows into lookup
+27	theme-integrity	Clean	A08	Tampering	Confirmed	theme.zig:23-61	Theme colors are compile-time constants; no runtime modification possible
+28	leak-detection	Low	A09	Repudiation	Confirmed	main.zig:14	defer _ = gpa.deinit() discards leak detection result; memory leaks in debug mode go unreported
+29	evaluate-error	Low	A05	DoS	Confirmed	calculator.zig:195-207	evaluate() clears pending_op even on compute error; failed operation state silently discarded
+30	state-consistency	Medium	A04	Tampering	Confirmed	calculator.zig:278-282	No upper bound on factorial input; factorialParallel(u64.max) causes infinite loop DoS; @intFromFloat UB for val > i64.max

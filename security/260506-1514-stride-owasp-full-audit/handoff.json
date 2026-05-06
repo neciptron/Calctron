@@ -1,0 +1,40 @@
+{
+  "source": "security-audit",
+  "audit_folder": "260506-1514-stride-owasp-full-audit",
+  "fix_loop_complete": true,
+  "fix_results": [
+    {
+      "id": "finding-1",
+      "severity": "Critical",
+      "title": "Factorial Denial of Service — No Upper Bound",
+      "status": "Fixed",
+      "files_modified": ["calculator.zig", "parallel.zig"]
+    },
+    {
+      "id": "finding-2",
+      "severity": "High",
+      "title": "getDisplayText Progressive Buffer Corruption",
+      "status": "Fixed",
+      "files_modified": ["calculator.zig"]
+    },
+    {
+      "id": "finding-3",
+      "severity": "High",
+      "title": "Negative Button Dimensions on Extreme Window Resize",
+      "status": "Fixed",
+      "files_modified": ["ui.zig"]
+    },
+    {
+      "id": "finding-4",
+      "severity": "High",
+      "title": "Silent Factorial Overflow Corruption",
+      "status": "Fixed",
+      "files_modified": ["parallel.zig", "calculator.zig"]
+    }
+  ],
+  "remaining_findings": {
+    "medium": 5,
+    "low": 4,
+    "info": 1
+  }
+}
